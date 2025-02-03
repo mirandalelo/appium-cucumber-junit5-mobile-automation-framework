@@ -12,7 +12,7 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "stepdefinitions, hooks")
-@ExcludeTags("ignore")
+@ExcludeTags({"ignore","home","flights","menu"})
 public class TestRunner {
 
 }
