@@ -11,6 +11,4 @@ public abstract class SettingsBase {
 
     public abstract By getRadioSettingsCloseButton();
 
-
-
 }

@@ -219,6 +219,7 @@ public class Engine {
         capabilities.setCapability("appActivity", androidProperties.getProperty("app.activity"));
         capabilities.setCapability("app", androidProperties.getProperty("app"));
         capabilities.setCapability("noReset", Boolean.parseBoolean(androidProperties.getProperty("no.reset"))); // Do not reset app state before this session
+        //capabilities.setCapability("fullReset", Boolean.parseBoolean(androidProperties.getProperty("full.reset")));
         capabilities.setCapability("unicodeKeyboard", Boolean.parseBoolean(androidProperties.getProperty("unicode.keyboard")));
         capabilities.setCapability("resetKeyboard", Boolean.parseBoolean(androidProperties.getProperty("hide.keyboard")));
         capabilities.setCapability("sessionCreationRetry", androidProperties.getProperty("session.creation.retry"));
@@ -228,9 +229,9 @@ public class Engine {
         capabilities.setCapability("autoGrantPermissions", Boolean.parseBoolean(androidProperties.getProperty("auto.grant.permissions"))); // Automatically grant permissions
         capabilities.setCapability("autoAcceptAlerts", Boolean.parseBoolean(androidProperties.getProperty("auto.accept.alerts"))); // Automatically accept alerts
         capabilities.setCapability("locationServicesAuthorized", Boolean.parseBoolean(androidProperties.getProperty("location.services")));
-        capabilities.setCapability("disableWindowAnimation", Boolean.parseBoolean(androidProperties.getProperty("disable.window.animation"))); // Disable window animations for faster testing
-        capabilities.setCapability("disableAndroidWatchers", Boolean.parseBoolean(androidProperties.getProperty("disable.android.watchers"))); // Disable Android system event watchers
-        capabilities.setCapability("ignoreUnimportantViews", Boolean.parseBoolean(androidProperties.getProperty("ignore.unimportant.views"))); // Ignore unimportant views to improve speed
+       // capabilities.setCapability("disableWindowAnimation", Boolean.parseBoolean(androidProperties.getProperty("disable.window.animation"))); // Disable window animations for faster testing
+        //capabilities.setCapability("disableAndroidWatchers", Boolean.parseBoolean(androidProperties.getProperty("disable.android.watchers"))); // Disable Android system event watchers
+        //capabilities.setCapability("ignoreUnimportantViews", Boolean.parseBoolean(androidProperties.getProperty("ignore.unimportant.views"))); // Ignore unimportant views to improve speed
         capabilities.setCapability("disableNotifications", Boolean.parseBoolean(androidProperties.getProperty("disable.notifications"))); // Disable notifications during test
         return capabilities;
     }
@@ -353,4 +354,5 @@ public class Engine {
         sauceOptions.setCapability("deviceOrientation", properties.getProperty("sauce.labs.device.orientation"));
         return sauceOptions;
     }
+
 }
