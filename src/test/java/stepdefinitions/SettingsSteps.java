@@ -15,7 +15,7 @@ public class SettingsSteps {
     HomePage homePage = new HomePage(getDriver());
     SettingsPage settingsPage = new SettingsPage(getDriver());
 
-    @Given("User taps over radio settings button")
+    @And("User taps over radio settings button")
     public void user_taps_over_radio_settings_button() {
 
         homePage.waitAndCheckIsVisible(settingsPage.settings.getSettingsButton(), Duration.ofSeconds(10));

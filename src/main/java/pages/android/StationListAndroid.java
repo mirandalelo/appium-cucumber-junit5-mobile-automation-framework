@@ -7,13 +7,13 @@ import pages.base.StationListBase;
 public class StationListAndroid extends StationListBase {
 
     //UiLib:VerticalListContainer
-    private final String stationListId = "VerticalListContainer";
-    private final String stationList = "com.bmwgroup.apinext.mediaapp:id/VerticalListContainer";
+    private final String stationListId = "UiLib:VerticalListContainer";
+    private final String stationList = "//android.view.View[ends-with(@resource-id,'VerticalListContainer')]";
     private final String station = "com.bmwgroup.apinext.mediaapp:id/ListImageComponent ImageRightIcon";
 
     @Override
     public By getStationList() {
-        return By.id(stationList);
+        return By.xpath(stationList);
     }
 
     @Override

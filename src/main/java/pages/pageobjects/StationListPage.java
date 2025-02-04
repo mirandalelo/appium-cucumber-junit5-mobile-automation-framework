@@ -1,9 +1,12 @@
 package pages.pageobjects;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pages.android.StationListAndroid;
 import pages.base.StationListBase;
+
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class StationListPage extends HomePage {
@@ -17,11 +20,30 @@ public class StationListPage extends HomePage {
 
     public boolean isStationListVisible() {
 
-        return isVisible(stationList.getStationList());
+        List<WebElement> allStations =  super.getElement(stationList.getStationList()).findElements(By.id("ImageFrameAtom"));
+
+        if (!allStations.isEmpty()) {
+            return allStations.get(0).isDisplayed();
+        }
+
+        return false;
+
     }
 
     public boolean isStationListLoaded() {
-        return !stationList.getStationList().findElements((SearchContext) stationList.getStation()).isEmpty();
+
+        List<WebElement> allStations = super.getElement(stationList.getStationList()).findElements(By.id("ImageFrameAtom"));
+
+        for (WebElement station:allStations) {
+
+            if(!station.isDisplayed()) {
+
+                return false;
+
+            }
+        }
+
+        return true;
     }
 
 }

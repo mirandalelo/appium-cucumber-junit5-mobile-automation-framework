@@ -2,7 +2,8 @@
 Feature: Radio Stations
 
   Background: User is on Radio Home Page
-    Given User taps over radio settings button
+    Given radio screen components are visible
+    And User taps over radio settings button
     And User disables full screen mode from radio settings
     And User closes radio settings screen
 
