@@ -40,20 +40,17 @@ public class HomePage extends AppiumUtils {
 
     public void closeAllPopups() {
 
-        String popup_1 = "IconAtom:drawable/idx_icon_erase";
-        String popup_2 = "android.widget.FrameLayout";
-
         for(int i=0; i<2;i++) {
-            if (waitAndCheckIsVisible(By.id(popup_1), Duration.ofSeconds(5))) {
+            if (waitAndCheckIsVisible(homePage.getPopupCloseButton(), Duration.ofSeconds(5))) {
 
-                click(By.id(popup_1));
+                click(homePage.getPopupCloseButton());
                 waitFor(Duration.ofSeconds(2));
 
             }
         }
 
         for(int i=0; i<4;i++) {
-            if (waitAndCheckIsVisible(By.className(popup_2), Duration.ofSeconds(5))) {
+            if (waitAndCheckIsVisible(homePage.getPopupClass(), Duration.ofSeconds(5))) {
 
                 pressBackKey();
                 waitFor(Duration.ofSeconds(5));

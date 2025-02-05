@@ -258,4 +258,10 @@ public class HomePageIOS extends HomePageBase {
     public By getBackButton() {
         return By.xpath(backButton);
     }
+
+    @Override
+    public By getPopupCloseButton() {return null;}
+
+    @Override
+    public By getPopupClass() {return null;}
 }

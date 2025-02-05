@@ -94,4 +94,8 @@ public abstract class HomePageBase {
     public abstract By getBottomTab();
 
     public abstract By getBackButton();
+
+    public abstract By getPopupCloseButton();
+
+    public abstract By getPopupClass();
 }

@@ -12,6 +12,8 @@ import static io.github.the_sdet.web.Utils.customizeXpath;
  */
 @SuppressWarnings({"FieldCanBeLocal", "unused"})
 public class HomePageAndroid extends HomePageBase {
+    private final String popupClassName = "android.widget.FrameLayout";
+    private final String popupCloseButton = "IconAtom:drawable/idx_icon_erase";
     private final String selectYourLanguageLabel = "//android.widget.TextView[@text='Select your Language']";
     private final String continueButton = "//android.widget.Button[@resource-id='com.makemytrip:id/continueButton']";
     private final String languageSelectionSkipButton = "com.makemytrip:id/skipTextView";
@@ -274,4 +276,12 @@ public class HomePageAndroid extends HomePageBase {
     public By getBackButton() {
         return By.xpath(backButton);
     }
+
+    @Override
+    public By getPopupCloseButton() {
+        return By.id(popupCloseButton);
+    }
+
+    @Override
+    public By getPopupClass() { return By.className(popupClassName); }
 }
