@@ -39,8 +39,7 @@ public class SourcePage extends HomePage {
         } else {
 
             ScreenCoordinate sourceButtonCoordinates = CommonUtils.loadScreenCoordinates("source.button");
-            CommonUtils.tap(driver, sourceButtonCoordinates.getX(), sourceButtonCoordinates.getY());
-           // CommonUtils.tap(driver,600,237);
+            CommonUtils.tap(driver, sourceButtonCoordinates);
 
         }
 

@@ -44,6 +44,12 @@ public class CommonUtils {
         }
     }
 
+    public static void tap(AppiumDriver driver, ScreenCoordinate screenCoordinates) {
+
+        tap(driver,screenCoordinates.getX(),screenCoordinates.getY());
+
+    }
+
     public static void tap(AppiumDriver driver, int x, int y) {
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence tap = new Sequence(finger, 1);

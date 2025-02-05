@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import pages.pageobjects.*;
 
@@ -14,10 +15,32 @@ public class RadioHomePageSteps {
     @Given("radio screen components are visible")
     public void radioScreenComponentsAreVisible() {
 
-        sourcePage.openMediaSource();
-        sourcePage.clickOnRadio();
-        //radioHomePage.checkIfUIComponentsAreVisible();
+        //Improve this logic ...
+        radioHomePage.checkIfUIComponentsAreVisible();
 
     }
+
+    @Given("all popups are closed after startup")
+    public void allPopupsAreClosedAfterStartup() {
+
+        homePage.closeAllPopups();
+
+    }
+
+    @And("media source menu is opened")
+    public void mediaSourceMenuIsOpened() {
+
+        sourcePage.openMediaSource();
+
+    }
+
+    @And("radio is selected from media source")
+    public void radioIsSelectedFromMediaSource() {
+
+        sourcePage.clickOnRadio();
+
+    }
+
+
 
 }

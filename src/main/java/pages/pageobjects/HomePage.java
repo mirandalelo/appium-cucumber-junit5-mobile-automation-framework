@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import pages.android.HomePageAndroid;
 import pages.base.HomePageBase;
 import pages.ios.HomePageIOS;
+import utils.CommonUtils;
+import utils.ScreenCoordinate;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -34,6 +36,37 @@ public class HomePage extends AppiumUtils {
     public HomePage(AppiumDriver driver) {
         super(driver);
         homePage = isAndroid() ? new HomePageAndroid() : new HomePageIOS();
+    }
+
+    public void closeAllPopups() {
+
+        String popup_1 = "IconAtom:drawable/idx_icon_erase";
+        String popup_2 = "android.widget.FrameLayout";
+
+        for(int i=0; i<2;i++) {
+            if (waitAndCheckIsVisible(By.id(popup_1), Duration.ofSeconds(5))) {
+
+                click(By.id(popup_1));
+                waitFor(Duration.ofSeconds(2));
+
+            }
+        }
+
+        for(int i=0; i<4;i++) {
+            if (waitAndCheckIsVisible(By.className(popup_2), Duration.ofSeconds(5))) {
+
+                pressBackKey();
+                waitFor(Duration.ofSeconds(5));
+
+            }
+        }
+    }
+
+    public void skipCarScreen() {
+
+        ScreenCoordinate sourceButtonCoordinates = CommonUtils.loadScreenCoordinates("welcome.car.split");
+        CommonUtils.tap(driver, sourceButtonCoordinates);
+
     }
 
     /**
