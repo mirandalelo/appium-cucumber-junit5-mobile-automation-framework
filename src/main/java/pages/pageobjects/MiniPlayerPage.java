@@ -34,7 +34,7 @@ public class MiniPlayerPage extends HomePage {
 
             String xpath = "//android.view.View[@resource-id='miniplayer_control']//android.view.View[@resource-id='miniplayer_right_control']";
             click(By.xpath(xpath));
-            waitFor(Duration.ofMillis(750)); // 1000 = 1 second
+            waitFor(Duration.ofSeconds(1)); // 1000 = 1 second
 
         }
 

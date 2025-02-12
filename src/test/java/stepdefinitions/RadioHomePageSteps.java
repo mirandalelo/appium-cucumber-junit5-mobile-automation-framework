@@ -86,7 +86,7 @@ public class RadioHomePageSteps {
             stationName = stationListPage.getStationName();
             Assert.assertTrue(stationName + " is not displayed in Mini Player", radioHomePage.isStationNameDisplayedInMiniPlayer(stationName));
 
-        } else if (station.equals("curent")) {
+        } else if (station.equals("current")) {
 
             stationName = stationListPage.getSelectedStationName();
             Assert.assertTrue(stationName + " is not displayed in Mini Player", radioHomePage.isStationNameDisplayedInMiniPlayer(stationName));
@@ -132,7 +132,7 @@ public class RadioHomePageSteps {
     @When("repeating the skip to the right actions {int} times")
     public void repeating_the_skip_to_the_right_actions_several_times(int times) {
 
-        miniPlayerPage.pressLeftSkipButton(times);
+        miniPlayerPage.pressRightSkipButton(times);
 
     }
 
