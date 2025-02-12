@@ -31,10 +31,12 @@ public class SettingsSteps {
         Assert.assertFalse("Full Screen Switch is still enabled!", settingsPage.isFullScreenSwitchEnabled());
 
     }
+
     @And("User closes radio settings screen")
     public void user_closes_radio_settings_screen() {
 
         settingsPage.closeSettings();
+
 
     }
 

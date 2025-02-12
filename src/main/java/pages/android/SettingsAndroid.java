@@ -10,7 +10,7 @@ public class SettingsAndroid extends SettingsBase {
 
     //UiLib:VerticalListContainer
     private final String radioSettingsButton = "IconAtom:drawable/idx_icon_settings";
-    private final String radioSettingsFullScreenSwitch= "//android.view.View[starts-with(@resource-id,'InternalEntry-Switch')]";
+    private final String radioSettingsFullScreenSwitch= "//android.view.View[@resource-id='InternalEntry-Switch automatically to fullscreen mode']";
     private final String radioSettingsCloseButton = "IconAtom:drawable/idx_icon_erase";
     private final String radioSettingsCloseButtonClass = "android.widget.Button";
 

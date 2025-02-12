@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import pages.android.SettingsAndroid;
 import pages.base.SettingsBase;
 
+import java.time.Duration;
 import java.util.List;
 
 public class SettingsPage extends HomePage {
@@ -27,7 +28,11 @@ public class SettingsPage extends HomePage {
 
     public void disableFullScreenSwitch() {
 
-        if (isFullScreenSwitchEnabled()) {  click(settings.getSettingsFullScreenSwitch()); }
+        if (isFullScreenSwitchEnabled()) {
+            WebElement fullScreenSwitch = super.getElement(settings.getSettingsFullScreenSwitch());
+            fullScreenSwitch.findElement(By.id("UiLib:ListComponent")).click();
+           // click(settings.getSettingsFullScreenSwitch());
+        }
 
     }
 
@@ -40,7 +45,13 @@ public class SettingsPage extends HomePage {
 
     public void closeSettings() {
 
-        click(settings.getRadioSettingsCloseButton());
+        if (waitAndCheckIsClickable(settings.getRadioSettingsCloseButton(),Duration.ofSeconds(3))) {
+            click(settings.getRadioSettingsCloseButton());
+        } else {
+            pressBackKey();
+        }
+
+        waitFor(Duration.ofSeconds(2));
 
     }
 

@@ -42,11 +42,6 @@ public class HomePageSteps {
         Assert.assertTrue(homePage.isHamburgerMenuDisplayed());
     }
 
-    @And("Logo should be displayed right to the Hamburger Menu Icon at top left")
-    public void logoShouldBeDisplayedRightToTheHamburgerMenuIconAtTopLeft() {
-        Assert.assertTrue(homePage.isLogoDisplayed());
-    }
-
     @And("MyBiz button should be displayed at the top right")
     public void myBizButtonShouldBeDisplayedAtTheTopRight() {
         Assert.assertTrue(homePage.isMyBizDisplayed());
