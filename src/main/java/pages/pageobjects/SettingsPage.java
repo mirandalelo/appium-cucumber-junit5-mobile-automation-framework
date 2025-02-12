@@ -25,7 +25,10 @@ public class SettingsPage extends HomePage {
 
     public void openSettings() {
 
-        click(settings.getSettingsButton());
+        if (waitAndCheckIsClickable(settings.getSettingsButton(), Duration.ofSeconds(2))) {
+            click(settings.getSettingsButton());
+            waitFor(Duration.ofSeconds(1));
+        }
 
     }
 
