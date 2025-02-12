@@ -31,6 +31,10 @@ public class RadioHomePage extends HomePage {
             waitFor(Duration.ofSeconds(1));
         }
 
+        if (waitAndCheckIsVisible(settings.getSettingsFullScreenSwitch(), Duration.ofSeconds(5))) {
+            waitFor(Duration.ofSeconds(1));
+        }
+
     }
 
     public boolean isMiniPlayerIsVisible() {

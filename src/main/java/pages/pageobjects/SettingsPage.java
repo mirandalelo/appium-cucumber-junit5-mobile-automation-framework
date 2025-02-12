@@ -10,6 +10,9 @@ import pages.base.SettingsBase;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import static io.github.the_sdet.cucumber.CucumberUtils.logToReport;
 
 public class SettingsPage extends HomePage {
 
@@ -29,18 +32,27 @@ public class SettingsPage extends HomePage {
     public void disableFullScreenSwitch() {
 
         if (isFullScreenSwitchEnabled()) {
-            WebElement fullScreenSwitch = super.getElement(settings.getSettingsFullScreenSwitch());
-            fullScreenSwitch.findElement(By.id("UiLib:ListComponent")).click();
-           // click(settings.getSettingsFullScreenSwitch());
+            if (waitAndCheckIsClickable(settings.getSettingsFullScreenSwitch(),Duration.ofSeconds(2))) {
+
+                click(settings.getSettingsFullScreenSwitch());
+                waitFor(Duration.ofSeconds(1));
+
+            }
         }
 
     }
 
     public boolean isFullScreenSwitchEnabled() {
 
-        WebElement fullScreenSwitch = super.getElement(settings.getSettingsFullScreenSwitch());
-        return fullScreenSwitch.findElements(By.className("android.view.View")).get(1).getAttribute("checked").equals("true");
+        boolean enabled = false;
+        String xpath = "//android.view.View[@resource-id=\"InternalEntry-Switch automatically to fullscreen mode\"]/android.view.View[3]";
 
+        if (waitAndCheckIsVisible(By.xpath(xpath), Duration.ofSeconds(2))) {
+            WebElement switchButton = super.getElement(By.xpath(xpath));
+            enabled = switchButton.getAttribute("checked").equals("true");
+        }
+
+        return enabled;
     }
 
     public void closeSettings() {

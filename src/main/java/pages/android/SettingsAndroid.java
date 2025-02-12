@@ -10,8 +10,8 @@ public class SettingsAndroid extends SettingsBase {
 
     //UiLib:VerticalListContainer
     private final String radioSettingsButton = "IconAtom:drawable/idx_icon_settings";
-    private final String radioSettingsFullScreenSwitch= "//android.view.View[@resource-id='InternalEntry-Switch automatically to fullscreen mode']";
-    private final String radioSettingsCloseButton = "IconAtom:drawable/idx_icon_erase";
+    private final String radioSettingsFullScreenSwitch= "(//android.view.View[@resource-id='UiLib:ListComponent'])[3]";
+    private final String radioSettingsCloseButton = "//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[4]/android.view.View[1]";
     private final String radioSettingsCloseButtonClass = "android.widget.Button";
 
     @Override
@@ -23,6 +23,6 @@ public class SettingsAndroid extends SettingsBase {
     public By getSettingsFullScreenSwitch() { return By.xpath(radioSettingsFullScreenSwitch); }
 
     @Override
-    public By getRadioSettingsCloseButton() { return By.className(radioSettingsCloseButtonClass); }
+    public By getRadioSettingsCloseButton() { return By.xpath(radioSettingsCloseButtonClass); }
 
 }
