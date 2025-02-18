@@ -74,4 +74,13 @@ public class RadioHomePage extends HomePage {
         return station.equals(miniPlayerHeader.getText());
 
     }
+
+    public String getMediaSourceName() {
+
+        String path = "//android.view.View[@resource-id='media_source_header_component']//android.widget.TextView[starts-with(@resource-id,'TextAtom:dynamic_string')]";
+        WebElement mediaSourceName = waitAndFindElement(By.xpath(path));
+
+        return mediaSourceName.getText();
+
+    }
 }

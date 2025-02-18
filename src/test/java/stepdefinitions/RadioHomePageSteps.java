@@ -144,4 +144,10 @@ public class RadioHomePageSteps {
 
     }
 
+    @Given("the media source is {string}")
+    public void theMediaSourceIs(String mediaSource) {
+
+        Assert.assertEquals(radioHomePage.getMediaSourceName().toLowerCase(),mediaSource);
+
+    }
 }
