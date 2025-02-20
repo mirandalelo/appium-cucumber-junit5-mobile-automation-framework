@@ -85,12 +85,11 @@ public class CommonUtils {
 
     }
 
-    public static Integer getAndroidCurrentUser(AppiumDriver driver, String command) {
+    public static Integer getAndroidCurrentUser(AppiumDriver driver) {
 
-        //command = "pm list users";
         String output = (String) driver.executeScript("mobile: shell",
                 new java.util.HashMap<String, String>() {{
-                    put("command", command);
+                    put("command", ConfigReader.getAdbCommands().getProperty("get.current.user"));
                     put("args", "");
                 }});
 

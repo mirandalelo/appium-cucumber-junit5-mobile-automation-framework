@@ -16,18 +16,20 @@ import java.util.Properties;
 public class ConfigReader {
 
     @Getter
-    static Properties properties, androidProperties, iosProperties, screenCoordinates;
+    static Properties properties, androidProperties, iosProperties, screenCoordinates, adbCommands;
 
     static {
         properties = new Properties();
         androidProperties = new Properties();
         iosProperties = new Properties();
         screenCoordinates = new Properties();
+        adbCommands = new Properties();
         try {
             properties.load(ConfigReader.class.getClassLoader().getResourceAsStream("config.properties"));
             androidProperties.load(ConfigReader.class.getClassLoader().getResourceAsStream("android-config.properties"));
             iosProperties.load(ConfigReader.class.getClassLoader().getResourceAsStream("ios-config.properties"));
             screenCoordinates.load(ConfigReader.class.getClassLoader().getResourceAsStream("screen-coordinates.properties"));
+            adbCommands.load(ConfigReader.class.getClassLoader().getResourceAsStream("adb-commands.properties"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

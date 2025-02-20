@@ -103,7 +103,7 @@ public class RadioHomePage extends HomePage {
 
     public Integer getAndroidActiveUser() {
 
-        return CommonUtils.getAndroidCurrentUser(driver,"am get-current-user");
+        return CommonUtils.getAndroidCurrentUser(driver);
 
     }
 }
