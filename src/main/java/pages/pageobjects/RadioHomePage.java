@@ -1,14 +1,17 @@
 package pages.pageobjects;
 
 import io.appium.java_client.AppiumDriver;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.android.SettingsAndroid;
 import pages.android.StationListAndroid;
 import pages.base.SettingsBase;
 import pages.base.StationListBase;
+import utils.CommonUtils;
 
 import java.time.Duration;
+import java.util.Random;
 
 import static io.github.the_sdet.cucumber.CucumberUtils.logToReport;
 
@@ -16,12 +19,15 @@ public class RadioHomePage extends HomePage {
 
     public SettingsBase settings;
     public StationListBase stationList;
+    @Getter
+    public StationListPage stationListPage;
 
     public RadioHomePage(AppiumDriver driver) {
 
         super(driver);
         settings = new SettingsAndroid();
         stationList = new StationListAndroid();
+        stationListPage = new StationListPage(driver);
 
     }
 
@@ -50,6 +56,17 @@ public class RadioHomePage extends HomePage {
 
         if (station == null || station.isEmpty()) {
             throw new IllegalArgumentException("Station name cannot be null or empty");
+        }
+
+        if (station.equals("any")) {
+
+            stationListPage.loadStationNames();
+            Random random = new Random();
+            int indexRandomStation = random.nextInt(stationListPage.getStationNames().size()-1);
+
+            station = stationListPage.getStationNames().get(indexRandomStation);
+            stationListPage.setCurrentStation(station);
+
         }
 
         String xpath = "//android.view.View[normalize-space(@resource-id)='ListImageComponent ImageRightIcon' and .//android.widget.TextView[@text='"+station+"']]";
@@ -81,6 +98,12 @@ public class RadioHomePage extends HomePage {
         WebElement mediaSourceName = waitAndFindElement(By.xpath(path));
 
         return mediaSourceName.getText();
+
+    }
+
+    public Integer getAndroidActiveUser() {
+
+        return CommonUtils.getAndroidCurrentUser(driver,"am get-current-user");
 
     }
 }

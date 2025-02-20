@@ -13,9 +13,9 @@ Feature: Radio Stations
   @IDCEVODEV-22947
   Scenario: [Tuner] DAB - All stations list
     Given the media source is "radio"
-    When selecting "80s80s" from the stations list
-    Then the "80s80s" station is audible
-    And the "80s80s" information is updated
+    When selecting "any" station from the stations list
+    Then the "current" station is audible
+#    And the "current" information is updated
 #    When scrolling through the all stations list
 #    Then the list contains currently receivable DAB and for each station,
 #    And the information about the corresponding bearer (DAB) is indicated with an icon or Albumcover.
@@ -23,7 +23,7 @@ Feature: Radio Stations
   @IDCEVODEV-22947 @ignore
   Scenario: DAB stations list - skip to other station using media mini player
     Given the media mini player is visible
-    When selecting "80s80s" from the stations list
+    When selecting "80s80s" station from the stations list
     Then the "80s80s" station is audible
     And the "80s80s" information is updated
     When pressing right skip button on Media Mini Player

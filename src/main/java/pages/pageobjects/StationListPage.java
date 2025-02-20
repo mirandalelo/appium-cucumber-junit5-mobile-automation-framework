@@ -1,11 +1,15 @@
 package pages.pageobjects;
 
 import io.appium.java_client.AppiumDriver;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.android.StationListAndroid;
 import pages.base.StationListBase;
+import utils.CommonUtils;
+import utils.ScreenCoordinate;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +19,8 @@ import static io.github.the_sdet.cucumber.CucumberUtils.logToReport;
 public class StationListPage extends HomePage {
 
     public StationListBase stationList;
+    public List<String> previousStationNames;
+    @Getter
     public List<String> stationNames;
     public int currentStationIndex;
 
@@ -22,6 +28,7 @@ public class StationListPage extends HomePage {
         super(driver);
         stationList = new StationListAndroid();
         currentStationIndex = 0;
+        previousStationNames = new ArrayList<>();
     }
 
     public boolean isStationListVisible() {
@@ -59,12 +66,30 @@ public class StationListPage extends HomePage {
         logToReport("Stations loaded: "+stations.size());
 
         stationNames = new ArrayList<>();
-        for(int i=0; i<stations.size(); i++) {
+        for (WebElement station : stations) {
 
-            stationNames.add(stations.get(i).getText());
-            logToReport("Station "+i+": "+stations.get(i).getText());
+            stationNames.add(station.getText());
+            //logToReport("Station "+i+": "+stations.get(i).getText());
 
         }
+    }
+
+    public boolean isItEndOfTheRadioList() {
+
+        boolean endOfStationList = false;
+
+        if (!previousStationNames.isEmpty()) {
+
+            endOfStationList =  stationNames.get(stationNames.size()-1).equals(previousStationNames.get(previousStationNames.size()-1));
+            logToReport("Last station from current list: "+stationNames.get(stationNames.size()-1));
+            logToReport("Last station from previous list:"+previousStationNames.get(previousStationNames.size()-1));
+
+        }
+
+        previousStationNames = new ArrayList<>(stationNames);
+
+        return endOfStationList;
+
     }
 
     public void setCurrentStation(String stationName) {
@@ -112,6 +137,15 @@ public class StationListPage extends HomePage {
 
         String xpath = "//android.widget.TextView";
         return getSelectedStation().findElement(By.xpath(xpath)).getText();
+
+    }
+
+    public void swipeRadioListToTheEnd() {
+
+        ScreenCoordinate radioListSwipeFrom = CommonUtils.loadScreenCoordinates("radio.list.swipe.from");
+        ScreenCoordinate radioListSwipeTo = CommonUtils.loadScreenCoordinates("radio.list.swipe.to");
+        CommonUtils.swipe(driver, radioListSwipeFrom, radioListSwipeTo);
+        waitFor(Duration.ofSeconds(3));
 
     }
 }

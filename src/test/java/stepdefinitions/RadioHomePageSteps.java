@@ -53,12 +53,22 @@ public class RadioHomePageSteps {
 
     }
 
-    @When("selecting {string} from the stations list")
+    @When("selecting {string} station from the stations list")
     public void selecting_a_station_from_the_stations_list(String station) {
 
         radioHomePage.selectStation(station);
-        stationListPage.loadStationNames();
-        stationListPage.setCurrentStation(station);
+
+        if (station.equals("any")) {
+
+            stationListPage = radioHomePage.getStationListPage();
+            station = stationListPage.getStationName();
+
+        } else {
+
+            stationListPage.loadStationNames();
+            stationListPage.setCurrentStation(station);
+
+        }
 
         Assert.assertEquals(station + " is not selected!", stationListPage.getStationName(), station);
 
@@ -68,6 +78,7 @@ public class RadioHomePageSteps {
     public void the_station_is_audible(String station) {
 
         //check audio focus in the logs for current station
+        Integer activeUserId = radioHomePage.getAndroidActiveUser();
 
     }
 
@@ -89,8 +100,8 @@ public class RadioHomePageSteps {
         } else if (station.equals("current")) {
 
             //To be implemented
-            //stationName = stationListPage.getSelectedStationName();
-            //Assert.assertTrue(stationName + " is not displayed in Mini Player", radioHomePage.isStationNameDisplayedInMiniPlayer(stationName));
+            stationName = stationListPage.getSelectedStationName();
+            Assert.assertTrue(stationName + " is not displayed in Mini Player", radioHomePage.isStationNameDisplayedInMiniPlayer(stationName));
 
         } else {
 
@@ -148,6 +159,18 @@ public class RadioHomePageSteps {
     public void theMediaSourceIs(String mediaSource) {
 
         Assert.assertEquals(radioHomePage.getMediaSourceName().toLowerCase(),mediaSource);
+
+    }
+
+    @When("scrolling through the all stations list")
+    public void scrollingThroughTheAllStationsList() {
+
+        stationListPage.loadStationNames();
+        while(!stationListPage.isItEndOfTheRadioList()) {
+            stationListPage.swipeRadioListToTheEnd();
+
+            stationListPage.loadStationNames();
+        }
 
     }
 }

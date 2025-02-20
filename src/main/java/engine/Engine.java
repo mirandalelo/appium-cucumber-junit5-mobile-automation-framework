@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import logger.Log;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriverException;
@@ -60,6 +61,7 @@ public class Engine {
      */
     public static URL startAppiumServer() {
         AppiumServiceBuilder builder = new AppiumServiceBuilder()
+                .withArgument(GeneralServerFlag.ALLOW_INSECURE,"adb_shell")
                 .withIPAddress(getProperties().getProperty("appium.server.url.local"))
                 .usingAnyFreePort();
 
