@@ -162,8 +162,8 @@ public class RadioHomePageSteps {
 
     }
 
-    @When("scrolling through the all stations list")
-    public void scrollingThroughTheAllStationsList() {
+    @When("scrolling from top to bottom through the all stations list")
+    public void scrollingFromTopToBottomThroughTheAllStationsList() {
 
         stationListPage.loadStationNames();
         while(!stationListPage.isItEndOfTheRadioList()) {

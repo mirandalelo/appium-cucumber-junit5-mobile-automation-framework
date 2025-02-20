@@ -16,7 +16,7 @@ Feature: Radio Stations
     When selecting "any" station from the stations list
     Then the "current" station is audible
 #    And the "current" information is updated
-#    When scrolling through the all stations list
+    When scrolling from top to bottom through the all stations list
 #    Then the list contains currently receivable DAB and for each station,
 #    And the information about the corresponding bearer (DAB) is indicated with an icon or Albumcover.
 #
