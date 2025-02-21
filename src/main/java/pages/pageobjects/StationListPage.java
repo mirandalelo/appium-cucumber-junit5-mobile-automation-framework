@@ -150,9 +150,6 @@ public class StationListPage extends HomePage {
     public String getCurrentStationName() {
 
         CurrentProgramInfo currentProgramInfo = CommonUtils.getAndroidCurrentProgramInfo(driver);
-        //loadStationNames();
-        //setCurrentStation(currentProgramInfo.getDABServiceName());
-
         return currentProgramInfo.getDABServiceName();
 
     }
