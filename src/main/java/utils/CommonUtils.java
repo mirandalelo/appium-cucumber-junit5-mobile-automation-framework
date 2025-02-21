@@ -1,5 +1,7 @@
 package utils;
 
+import data.entity.MediaSession;
+import data.type.MediaSessionAppTypes;
 import io.appium.java_client.AppiumDriver;
 import io.cucumber.java.Scenario;
 import logger.Log;
@@ -9,6 +11,8 @@ import org.openqa.selenium.interactions.Sequence;
 
 import java.time.Duration;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static engine.Engine.getDriver;
 import static io.github.the_sdet.cucumber.CucumberUtils.*;
@@ -96,6 +100,84 @@ public class CommonUtils {
         Log.info("Active User: "+output);
 
         return Integer.parseInt(output.replaceAll("[\\r\\n]", "").trim());
+
+    }
+
+
+    /**
+     *
+     * @param driver
+     * @param userId
+     * @param availableApps
+     * @return MediaSession
+     */
+    public static MediaSession getAndroidMediaSession(AppiumDriver driver, Integer userId, MediaSessionAppTypes availableApps) {
+
+        MediaSession mediaSession = null;
+
+        String output = (String) driver.executeScript("mobile: shell",
+                new java.util.HashMap<String, String>() {{
+                    put("command", ConfigReader.getAdbCommands().getProperty("get.media.session"));
+                    put("args", "");
+                }});
+
+
+        // Regular expression pattern (matches any number in "size=XX")
+        String regex = "";
+        if (availableApps == MediaSessionAppTypes.TMS) {
+            regex = "(?m)^\\s*bmw_tuner com\\.bmwgroup\\.apinext\\.tunermediaservice/bmw_tuner \\(userId=" + userId + "\\)(?:\\n\\s{2,}.*?)*?\\n\\s{2,}queueTitle=.*?size=\\d+$";
+        }
+
+        // Compile and match pattern
+        Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(output);
+
+        if (matcher.find()) {
+
+            Log.info("Media Session data acquired: "+matcher.group(0));
+
+            String mediaInfo = matcher.group(0);
+            mediaSession = new MediaSession();
+            mediaSession.setUserId(userId);
+
+            //Extracting package
+            pattern = Pattern.compile("package=([\\w\\.]+)");
+            matcher = pattern.matcher(mediaInfo);
+
+            if (matcher.find()) {
+                mediaSession.setPackageName(matcher.group(1));
+            }
+
+            //Extracting active
+            pattern = Pattern.compile("active=(true|false)");
+            matcher = pattern.matcher(mediaInfo);
+
+            if (matcher.find()) {
+                mediaSession.setActive(Boolean.parseBoolean(matcher.group(1)));
+            }
+
+            //Extracting state: PLAYING, PAUSED
+            pattern = Pattern.compile("state=([A-Z_]+)\\((\\d+)\\)");
+            matcher = pattern.matcher(mediaInfo);
+
+            if (matcher.find()) {
+                mediaSession.setState(matcher.group(1).trim());
+            }
+
+            //Extracting metadata
+            pattern = Pattern.compile("description=(.+)");
+            matcher = pattern.matcher(mediaInfo);
+
+            if (matcher.find()) {
+                mediaSession.setMetadataDescription(matcher.group(1).trim());
+            }
+
+
+        } else {
+            Log.info("No media session found: "+output);
+        }
+
+        return mediaSession;
 
     }
 

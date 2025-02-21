@@ -1,5 +1,7 @@
 package pages.pageobjects;
 
+import data.entity.MediaSession;
+import data.type.MediaSessionAppTypes;
 import io.appium.java_client.AppiumDriver;
 import lombok.Getter;
 import org.openqa.selenium.By;
@@ -101,9 +103,10 @@ public class RadioHomePage extends HomePage {
 
     }
 
-    public Integer getAndroidActiveUser() {
+    public MediaSession getMediaSession() {
 
-        return CommonUtils.getAndroidCurrentUser(driver);
+        Integer userId = CommonUtils.getAndroidCurrentUser(driver);
+        return CommonUtils.getAndroidMediaSession(driver, userId, MediaSessionAppTypes.TMS);
 
     }
 }

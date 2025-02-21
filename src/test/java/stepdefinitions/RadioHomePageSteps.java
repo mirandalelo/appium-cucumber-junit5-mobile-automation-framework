@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import data.entity.MediaSession;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -77,8 +78,9 @@ public class RadioHomePageSteps {
     @Then("the {string} station is audible")
     public void the_station_is_audible(String station) {
 
-        //check audio focus in the logs for current station
-        Integer activeUserId = radioHomePage.getAndroidActiveUser();
+        MediaSession mediaSession = radioHomePage.getMediaSession();
+        Assert.assertTrue("Audio focus is not on Radio", mediaSession.isActive());
+        Assert.assertEquals("Radio station is not playing", "PLAYING",mediaSession.getState());
 
     }
 
