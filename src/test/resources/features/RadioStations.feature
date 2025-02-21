@@ -15,17 +15,19 @@ Feature: Radio Stations
     Given the media source is "radio"
     When selecting "any" station from the stations list
     Then the "current" station is audible
-#    And the "current" information is updated
+    And the "current" information is updated
     When scrolling from top to bottom through the all stations list
 #    Then the list contains currently receivable DAB and for each station,
 #    And the information about the corresponding bearer (DAB) is indicated with an icon or Albumcover.
-#
-  @IDCEVODEV-22947 @ignore
+
+  @IDCEVODEV-22947
   Scenario: DAB stations list - skip to other station using media mini player
     Given the media mini player is visible
-    When selecting "80s80s" station from the stations list
-    Then the "80s80s" station is audible
-    And the "80s80s" information is updated
+    And the list of stations is at the beginning
+    When selecting "any" station from the stations list
+    And waits for 3 seconds
+    Then the "current" station is audible
+    And the "current" information is updated
     When pressing right skip button on Media Mini Player
     Then the next station in the list is selected
     Then the "next" station is audible
@@ -35,5 +37,6 @@ Feature: Radio Stations
     And the "previous" station is audible
     And the "previous" information is updated
     When repeating the skip to the right actions 10 times
+    And waits for 3 seconds
     Then the "current" station is audible
     And the "current" information is updated

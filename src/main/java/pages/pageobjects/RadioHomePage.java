@@ -89,8 +89,8 @@ public class RadioHomePage extends HomePage {
         String path = "//android.view.View[@resource-id='miniplayer_control']//android.view.View[@resource-id='TEST_TAG_HEADER']//android.widget.TextView";
         WebElement miniPlayerHeader = waitAndFindElement(By.xpath(path));
 
-        logToReport("Station Playing on Mini: "+station);
-        return station.equals(miniPlayerHeader.getText());
+        logToReport("Station Playing on Mini: "+miniPlayerHeader.getText()+" x "+station);
+        return miniPlayerHeader.getText().trim().equals(station);
 
     }
 

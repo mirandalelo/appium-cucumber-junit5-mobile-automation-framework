@@ -1,5 +1,6 @@
 package pages.pageobjects;
 
+import data.entity.CurrentProgramInfo;
 import io.appium.java_client.AppiumDriver;
 import lombok.Getter;
 import org.openqa.selenium.By;
@@ -63,18 +64,19 @@ public class StationListPage extends HomePage {
 
         String xpath = "(//android.view.View[@resource-id=\"ListImageComponent ImageRightIcon\"]//android.widget.TextView)";
         List<WebElement> stations = driver.findElements(By.xpath(xpath));
-        logToReport("Stations loaded: "+stations.size());
 
         stationNames = new ArrayList<>();
         for (WebElement station : stations) {
 
             stationNames.add(station.getText());
-            //logToReport("Station "+i+": "+stations.get(i).getText());
 
         }
+
+        logToReport("Loaded stations: "+stationNames.toString());
+
     }
 
-    public boolean isItEndOfTheRadioList() {
+    public boolean isTheRadioListAtTheEnd() {
 
         boolean endOfStationList = false;
 
@@ -88,7 +90,25 @@ public class StationListPage extends HomePage {
 
         previousStationNames = new ArrayList<>(stationNames);
 
-        return endOfStationList;
+        return !endOfStationList;
+
+    }
+
+    public boolean isTheRadioListAtTheBeginning() {
+
+        boolean startOfStationList = false;
+
+        if (!previousStationNames.isEmpty()) {
+
+            startOfStationList =  stationNames.get(0).equals(previousStationNames.get(0));
+            logToReport("Last station from current list: "+stationNames.get(0));
+            logToReport("Last station from previous list:"+previousStationNames.get(0));
+
+        }
+
+        previousStationNames = new ArrayList<>(stationNames);
+
+        return !startOfStationList;
 
     }
 
@@ -100,6 +120,7 @@ public class StationListPage extends HomePage {
             if (stationNames.get(i).equals(stationName)) {
 
                 currentStationIndex = i;
+                logToReport("Station name located in the List: "+stationNames.get(i));
                 break;
 
             }
@@ -126,26 +147,32 @@ public class StationListPage extends HomePage {
 
     }
 
-    public WebElement getSelectedStation() {
+    public String getCurrentStationName() {
 
-        //to be implemented
-        return null;
+        CurrentProgramInfo currentProgramInfo = CommonUtils.getAndroidCurrentProgramInfo(driver);
+        //loadStationNames();
+        //setCurrentStation(currentProgramInfo.getDABServiceName());
 
-    }
-
-    public String getSelectedStationName() {
-
-        String xpath = "//android.widget.TextView";
-        return getSelectedStation().findElement(By.xpath(xpath)).getText();
+        return currentProgramInfo.getDABServiceName();
 
     }
 
     public void swipeRadioListToTheEnd() {
 
-        ScreenCoordinate radioListSwipeFrom = CommonUtils.loadScreenCoordinates("radio.list.swipe.from");
-        ScreenCoordinate radioListSwipeTo = CommonUtils.loadScreenCoordinates("radio.list.swipe.to");
+        ScreenCoordinate radioListSwipeFrom = CommonUtils.loadScreenCoordinates("radio.list.swipe.end.from");
+        ScreenCoordinate radioListSwipeTo = CommonUtils.loadScreenCoordinates("radio.list.swipe.end.to");
         CommonUtils.swipe(driver, radioListSwipeFrom, radioListSwipeTo);
-        waitFor(Duration.ofSeconds(3));
+        waitFor(Duration.ofSeconds(1));
 
     }
+
+    public void swipeRadioListToTop() {
+
+        ScreenCoordinate radioListSwipeFrom = CommonUtils.loadScreenCoordinates("radio.list.swipe.start.from");
+        ScreenCoordinate radioListSwipeTo = CommonUtils.loadScreenCoordinates("radio.list.swipe.start.to");
+        CommonUtils.swipe(driver, radioListSwipeFrom, radioListSwipeTo);
+        waitFor(Duration.ofSeconds(1));
+
+    }
+
 }

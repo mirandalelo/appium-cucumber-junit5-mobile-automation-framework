@@ -8,6 +8,8 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import pages.pageobjects.*;
 
+import java.time.Duration;
+
 import static engine.Engine.getDriver;
 
 public class RadioHomePageSteps {
@@ -101,8 +103,7 @@ public class RadioHomePageSteps {
 
         } else if (station.equals("current")) {
 
-            //To be implemented
-            stationName = stationListPage.getSelectedStationName();
+            stationName = stationListPage.getCurrentStationName();
             Assert.assertTrue(stationName + " is not displayed in Mini Player", radioHomePage.isStationNameDisplayedInMiniPlayer(stationName));
 
         } else {
@@ -168,11 +169,30 @@ public class RadioHomePageSteps {
     public void scrollingFromTopToBottomThroughTheAllStationsList() {
 
         stationListPage.loadStationNames();
-        while(!stationListPage.isItEndOfTheRadioList()) {
+        while(stationListPage.isTheRadioListAtTheEnd()) {
             stationListPage.swipeRadioListToTheEnd();
 
             stationListPage.loadStationNames();
         }
+
+    }
+
+    @And("the list of stations is at the beginning")
+    public void theListOfStationsIsAtTheBeginning() {
+
+        stationListPage.loadStationNames();
+        while(stationListPage.isTheRadioListAtTheBeginning()) {
+            stationListPage.swipeRadioListToTop();
+
+            stationListPage.loadStationNames();
+        }
+
+    }
+
+    @And("waits for {int} seconds")
+    public void waitsForIntSeconds(int seconds) {
+
+        radioHomePage.waitFor(Duration.ofSeconds(seconds));
 
     }
 }

@@ -6,11 +6,11 @@ import lombok.Setter;
 @Getter @Setter
 public class MediaSession {
 
-    String packageName;
-    Integer userId;
-    boolean active;
-    String state;
-    String metadataDescription;
+    private String packageName;
+    private Integer userId;
+    private boolean active;
+    private String state;
+    private String metadataDescription;
 
     public MediaSession() {}
 

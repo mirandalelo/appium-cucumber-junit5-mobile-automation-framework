@@ -1,5 +1,6 @@
 package utils;
 
+import data.entity.CurrentProgramInfo;
 import data.entity.MediaSession;
 import data.type.MediaSessionAppTypes;
 import io.appium.java_client.AppiumDriver;
@@ -174,12 +175,68 @@ public class CommonUtils {
 
 
         } else {
-            Log.info("No media session found: "+output);
+            Log.info("No media session found!");
         }
 
         return mediaSession;
 
     }
 
+    public static CurrentProgramInfo getAndroidCurrentProgramInfo(AppiumDriver driver) {
 
+        CurrentProgramInfo currentProgramInfo = null;
+
+        String output = (String) driver.executeScript("mobile: shell",
+                new java.util.HashMap<String, String>() {{
+                    put("command", ConfigReader.getAdbCommands().getProperty("get.broadcast.radio"));
+                    put("args", "");
+                }});
+
+        // Regular expression to extract Current ProgramInfo
+        Pattern pattern = Pattern.compile("Current ProgramInfo:\\s*(.*?)\\bICON=\\d+", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(output);
+
+        if (matcher.find()) {
+
+            Log.info("Current Program Info data acquired: "+matcher.group(1).trim());
+
+            currentProgramInfo = new CurrentProgramInfo();
+
+            String programInfo = matcher.group(1).trim(); // Extract the captured content
+
+            pattern = Pattern.compile("\\.DAB_SERVICE_NAME=([^,]+)");
+            matcher = pattern.matcher(programInfo);
+
+            if (matcher.find()) {
+                currentProgramInfo.setDABServiceName(matcher.group(1).trim());
+            }
+
+            pattern = Pattern.compile("\\.TITLE=([^,]+)");
+            matcher = pattern.matcher(programInfo);
+
+            if (matcher.find()) {
+                currentProgramInfo.setTitle(matcher.group(1).trim());
+            }
+
+            pattern = Pattern.compile("\\.ARTIST=([^,]+)");
+            matcher = pattern.matcher(programInfo);
+
+            if (matcher.find()) {
+                currentProgramInfo.setArtist(matcher.group(1).trim());
+            }
+
+            pattern = Pattern.compile("\\.RDS_RT=([^,]+)");
+            matcher = pattern.matcher(programInfo);
+
+            if (matcher.find()) {
+                currentProgramInfo.setArtist(matcher.group(1).trim());
+            }
+
+        } else {
+            Log.info("Current ProgramInfo not Found in Radio BroadCast.!");
+        }
+
+        return currentProgramInfo;
+
+    }
 }
