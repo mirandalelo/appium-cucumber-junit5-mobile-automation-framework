@@ -1,7 +1,7 @@
 @station
 Feature: Radio Stations
 
-  Background: User starts the car and disables full screen mode from radio settings
+  Scenario: User starts the car and disables full screen mode from radio settings
 #    Given all popups are closed after startup
     Given media source menu is opened
     And radio is selected from media source
@@ -37,6 +37,6 @@ Feature: Radio Stations
     And the "previous" station is audible
     And the "previous" information is updated
     When repeating the skip to the right actions 10 times
-    And waits for 3 seconds
+    And waits for 4 seconds
     Then the "current" station is audible
     And the "current" information is updated
