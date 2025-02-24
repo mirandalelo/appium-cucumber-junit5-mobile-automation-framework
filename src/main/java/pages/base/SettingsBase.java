@@ -9,6 +9,10 @@ public abstract class SettingsBase {
 
     public abstract By getSettingsFullScreenSwitch();
 
+    public abstract By getSettingsFullScreenSwitchArea();
+
+    public abstract By getSettingsFullScreenSwitchGlowEffect();
+
     public abstract By getRadioSettingsCloseButton();
 
 }

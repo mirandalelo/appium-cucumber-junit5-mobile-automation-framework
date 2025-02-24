@@ -3,6 +3,7 @@ package stepdefinitions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import pages.pageobjects.HomePage;
 import pages.pageobjects.SettingsPage;
 
@@ -18,14 +19,14 @@ public class SettingsSteps {
     @And("User taps over radio settings button")
     public void user_taps_over_radio_settings_button() {
 
-        homePage.waitAndCheckIsVisible(settingsPage.settings.getSettingsButton(), Duration.ofSeconds(10));
+        homePage.waitFor(Duration.ofSeconds(3));
+        homePage.waitAndCheckIsVisible(settingsPage.settings.getSettingsButton(), Duration.ofSeconds(5));
         settingsPage.openSettings();
 
     }
     @And("User disables full screen mode from radio settings")
     public void user_disables_full_screen_mode_from_radio_settings() {
 
-        settingsPage.waitAndCheckIsVisible(settingsPage.settings.getSettingsFullScreenSwitch(),Duration.ofSeconds(5));
         settingsPage.disableFullScreenSwitch();
 
         Assert.assertFalse("Full Screen Switch is still enabled!", settingsPage.isFullScreenSwitchEnabled());

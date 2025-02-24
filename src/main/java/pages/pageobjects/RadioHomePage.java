@@ -33,18 +33,6 @@ public class RadioHomePage extends HomePage {
 
     }
 
-    public void checkIfUIComponentsAreVisible() {
-
-        if (waitAndCheckIsVisible(settings.getSettingsButton(), Duration.ofSeconds(5))) {
-            waitFor(Duration.ofSeconds(1));
-        }
-
-        if (waitAndCheckIsVisible(settings.getSettingsFullScreenSwitch(), Duration.ofSeconds(5))) {
-            waitFor(Duration.ofSeconds(1));
-        }
-
-    }
-
     public boolean isMiniPlayerIsVisible() {
 
         String path = "//android.view.View[@resource-id=\"TEST_TAG_COMPONENT\"]";

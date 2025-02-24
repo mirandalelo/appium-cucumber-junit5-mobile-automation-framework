@@ -41,14 +41,6 @@ public class RadioHomePageSteps {
 
     }
 
-    @And("radio screen components are visible")
-    public void radioScreenComponentsAreVisible() {
-
-        //Improve this logic ...
-        radioHomePage.checkIfUIComponentsAreVisible();
-
-    }
-
     @Given("the media mini player is visible")
     public void the_media_mini_player_is_visible() {
 
@@ -183,7 +175,7 @@ public class RadioHomePageSteps {
         stationListPage.loadStationNames();
         while(stationListPage.isTheRadioListAtTheBeginning()) {
             stationListPage.swipeRadioListToTop();
-
+            stationListPage.waitFor(Duration.ofSeconds(1));
             stationListPage.loadStationNames();
         }
 

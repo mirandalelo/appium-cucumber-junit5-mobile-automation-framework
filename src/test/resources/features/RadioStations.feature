@@ -5,7 +5,6 @@ Feature: Radio Stations
 #    Given all popups are closed after startup
     Given media source menu is opened
     And radio is selected from media source
-    And radio screen components are visible
     And User taps over radio settings button
     And User disables full screen mode from radio settings
     And User closes radio settings screen

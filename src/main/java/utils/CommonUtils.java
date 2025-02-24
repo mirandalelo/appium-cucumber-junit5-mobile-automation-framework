@@ -6,6 +6,8 @@ import data.type.MediaSessionAppTypes;
 import io.appium.java_client.AppiumDriver;
 import io.cucumber.java.Scenario;
 import logger.Log;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
@@ -67,6 +69,18 @@ public class CommonUtils {
 
         driver.perform(Collections.singletonList(sequence));
 
+
+    }
+
+    public static void tapElement(AppiumDriver driver, By elementLocation) {
+
+        Point elementPosition = driver.findElement(elementLocation).getLocation();
+        int elementPositionX = elementPosition.getX() + 80;
+        int elementPositionY = elementPosition.getY() + 100;
+
+        logToReport("Switch X: "+elementPositionX+" | Switch Y: "+elementPositionY);
+
+        CommonUtils.tap(driver,elementPositionX,elementPositionY);
 
     }
 
