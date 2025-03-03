@@ -52,7 +52,13 @@ public class RadioHomePage extends HomePage {
 
             stationListPage.loadStationNames();
             Random random = new Random();
+
             int indexRandomStation = random.nextInt(stationListPage.getStationNames().size()-1);
+            while (indexRandomStation == stationListPage.getCurrentStationIndex()) {
+
+                indexRandomStation = random.nextInt(stationListPage.getStationNames().size()-1);
+
+            }
 
             station = stationListPage.getStationNames().get(indexRandomStation);
             stationListPage.setCurrentStation(station);

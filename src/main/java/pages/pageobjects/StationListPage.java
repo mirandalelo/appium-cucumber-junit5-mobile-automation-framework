@@ -23,6 +23,7 @@ public class StationListPage extends HomePage {
     public List<String> previousStationNames;
     @Getter
     public List<String> stationNames;
+    @Getter
     public int currentStationIndex;
 
     public StationListPage(AppiumDriver driver) {

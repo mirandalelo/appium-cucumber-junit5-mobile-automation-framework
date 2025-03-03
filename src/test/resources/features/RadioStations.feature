@@ -9,7 +9,20 @@ Feature: Radio Stations
     And User disables full screen mode from radio settings
     And User closes radio settings screen
 
-  @IDCEVODEV-22947
+  @IDCEVODEV-22952
+  Scenario: [Tuner] Select other station in DAB all stations list
+    Given the media source is "radio"
+    When selecting "any" station from the stations list
+    Then the "current" station is audible
+    And the "current" information is updated
+    When selecting "any" station from the stations list
+    Then the "current" station is audible
+    And the "current" information is updated
+   # Then the DAB station is audible, status bar and the station information are updated.
+   # When selecting a different DAB station from all stations list
+   # Then the station is highlighted and audible, status bar and the station information are updated.
+
+  @IDCEVODEV-22966
   Scenario: [Tuner] DAB - All stations list
     Given the media source is "radio"
     When selecting "any" station from the stations list
