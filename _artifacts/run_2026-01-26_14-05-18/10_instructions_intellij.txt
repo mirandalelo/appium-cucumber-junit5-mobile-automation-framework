@@ -1,0 +1,1 @@
+﻿No mvnw.cmd found and 'mvn' not on PATH. Run via IntelliJ and export console output to: .\_artifacts\run_2026-01-26_14-05-18\10_test_output_from_intellij.txt

@@ -6,11 +6,18 @@ import pages.base.SourcePageBase;
 public class SourcePageAndroid extends SourcePageBase {
     @Override
     public By getSourceButton() {
-        return By.id("media_source_header_component");
+        return By.id("com.bmwgroup.apinext.mediaapp:id/source_name");
     }
 
     @Override
     public By getRadioButton() {
-        return By.id("ImageFrameAtom:drawable/internal_idx_image_source_background_radio");
+        return By.xpath(".//node[normalize-space(@resource-id) = \"SourceAvailableInList_DynamicString(text='Radio')\"]");
     }
+
+    @Override
+    public By getMediaMenu() { return By.xpath("//*[@resource-id='IconicBar.Det.Media']"); }
+
+    @Override
+    public By getHomeMenu() { return By.xpath(".//node[@resource-id='IconicBar.Det.Home']"); }
+
 }

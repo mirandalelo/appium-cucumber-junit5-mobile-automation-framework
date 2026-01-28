@@ -73,6 +73,14 @@ public class Hooks {
     @AfterAll
     public static void afterAll() {
         printResult();
+        try {
+            Log.info("Waiting 5 seconds before quitting driver...");
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.warn("Sleep interrupted before quitting driver.");
+        }
+
         quitDriver();
         stopAppiumServer();
         String home = System.getProperty("user.dir");

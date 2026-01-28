@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import org.junit.Assert;
@@ -41,4 +42,8 @@ public class SettingsSteps {
 
     }
 
+    @Given("Android Home Button is pressed")
+    public void androidHomeButtonIsPressed() {
+        settingsPage.pressAndroidHome();
+    }
 }

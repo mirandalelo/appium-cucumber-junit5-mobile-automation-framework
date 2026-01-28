@@ -1,6 +1,7 @@
 package pages.pageobjects;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
 import io.github.the_sdet.mobile.AppiumUtils;
 import logger.Log;
 import org.openqa.selenium.By;
@@ -331,5 +332,13 @@ public class HomePage extends AppiumUtils {
      */
     public void clickOnLob(String lobName) {
         waitAndClick(homePage.getLobItem(lobName), Duration.ofDays(5));
+    }
+
+    public void pressAndroidHome(){
+        super.pressKey(AndroidKey.HOME);
+    }
+
+    public void pressAndroidBack(){
+        super.pressKey(AndroidKey.BACK);
     }
 }

@@ -134,18 +134,39 @@ public class Engine {
      */
     public static void quitDriver() {
         AppiumDriver driver = tlDriver.get();
-        if (driver != null) {
-            try {
-                ((AndroidDriver) driver).terminateApp(appPackage);
-            } catch (WebDriverException e) {
-                waitFor(Duration.ofSeconds(2));
-                ((AndroidDriver) driver).terminateApp(appPackage);
+        if (driver == null) return;
+
+        try {
+            Log.info("quitDriver -> platform=" + platform
+                    + " | driver=" + driver.getClass().getSimpleName()
+                    + " | appPackage=" + appPackage);
+
+            if (isAndroid()) {
+                if (appPackage != null && !appPackage.isBlank()) {
+                    ((AndroidDriver) driver).terminateApp(appPackage);
+                } else {
+                    Log.info("quitDriver -> Skipping terminateApp: appPackage is null/blank");
+                }
+            } else {
+                // iOS (if you ever run it): use bundleId, not appPackage
+                String bundleId = getIosProperties().getProperty("bundleId");
+                if (bundleId != null && !bundleId.isBlank()) {
+                    ((IOSDriver) driver).terminateApp(bundleId);
+                } else {
+                    Log.info("quitDriver -> Skipping terminateApp: bundleId is null/blank");
+                }
             }
+
             waitFor(Duration.ofSeconds(2));
-            driver.quit();
-            Log.info("App Terminated...");
+        } catch (Exception e) {
+            Log.error("quitDriver -> terminateApp failed (ignored to not break teardown)", e);
+        } finally {
+            try { driver.quit(); } catch (Exception ignored) {}
+            tlDriver.remove();
+            Log.info("Driver quit.");
         }
     }
+
 
     /**
      * Activate the app associated with the current driver.
@@ -217,9 +238,11 @@ public class Engine {
         capabilities.setCapability("platformName", getProperties().getProperty("platform"));
         capabilities.setCapability("platformVersion", androidProperties.getProperty("platform.version"));
         capabilities.setCapability("automationName", "uiAutomator2");
-        capabilities.setCapability("appPackage", appPackage);
-        capabilities.setCapability("appActivity", androidProperties.getProperty("app.activity"));
-        capabilities.setCapability("app", androidProperties.getProperty("app"));
+        // capabilities.setCapability("appPackage", appPackage);
+        // Comment out appActivity since .player.MediaActivity is not exported (causes SecurityException)
+        // Let Appium use the default launcher activity or use Engine.activateApp() after session starts
+        // capabilities.setCapability("appActivity", androidProperties.getProperty("app.activity"));
+        // capabilities.setCapability("app", androidProperties.getProperty("app"));
         capabilities.setCapability("noReset", Boolean.parseBoolean(androidProperties.getProperty("no.reset"))); // Do not reset app state before this session
         //capabilities.setCapability("fullReset", Boolean.parseBoolean(androidProperties.getProperty("full.reset")));
         capabilities.setCapability("unicodeKeyboard", Boolean.parseBoolean(androidProperties.getProperty("unicode.keyboard")));
@@ -281,9 +304,9 @@ public class Engine {
         Properties androidProperties = getAndroidProperties();
         MutableCapabilities caps = new MutableCapabilities();
         caps.setCapability("platformName", getProperties().getProperty("platform"));
-        String appName = androidProperties.getProperty("app.name");
-        String appValue = appName.contains("apk") ? "storage:filename=" + appName : "storage:" + appName;
-        caps.setCapability("app", appValue); // The filename of the mobile app
+        // String appName = androidProperties.getProperty("app.name");
+        // String appValue = appName.contains("apk") ? "storage:filename=" + appName : "storage:" + appName;
+        // caps.setCapability("app", appValue); // The filename of the mobile app
         caps.setCapability("deviceName", androidProperties.getProperty("sauce.device.name"));
         caps.setCapability("platformVersion", androidProperties.getProperty("sauce.platform.version"));
         caps.setCapability("automationName", "uiAutomator2");

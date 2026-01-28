@@ -1,6 +1,7 @@
 package stepdefinitions;
 
 import data.entity.MediaSession;
+import engine.Engine;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,11 +15,19 @@ import static engine.Engine.getDriver;
 
 public class RadioHomePageSteps {
 
-    HomePage homePage = new HomePage(getDriver());
-    RadioHomePage radioHomePage = new RadioHomePage(getDriver());
-    StationListPage stationListPage = new StationListPage(getDriver());
-    SourcePage sourcePage = new SourcePage(getDriver());
-    MiniPlayerPage miniPlayerPage = new MiniPlayerPage(getDriver());
+    HomePage homePage;
+    RadioHomePage radioHomePage;
+    StationListPage stationListPage;
+    SourcePage sourcePage;
+    MiniPlayerPage miniPlayerPage;
+
+    public RadioHomePageSteps() {
+        homePage = new HomePage(getDriver());
+        radioHomePage = new RadioHomePage(getDriver());
+        stationListPage = new StationListPage(getDriver());
+        sourcePage = new SourcePage(getDriver());
+        miniPlayerPage = new MiniPlayerPage(getDriver());
+    }
 
     @Given("all popups are closed after startup")
     public void allPopupsAreClosedAfterStartup() {
@@ -28,13 +37,19 @@ public class RadioHomePageSteps {
     }
 
     @Given("media source menu is opened")
+    @Given("Open Media")
     public void mediaSourceMenuIsOpened() {
+        // Activate Media app since it doesn't auto-launch at session start
+        Engine.activateApp();
+        
+        // Wait for Media app to stabilize
+        try { Thread.sleep(3000); } catch (InterruptedException e) {}
 
         sourcePage.openMediaSource();
-
     }
 
     @And("radio is selected from media source")
+    @And("Open Radio")
     public void radioIsSelectedFromMediaSource() {
 
         sourcePage.clickOnRadio();

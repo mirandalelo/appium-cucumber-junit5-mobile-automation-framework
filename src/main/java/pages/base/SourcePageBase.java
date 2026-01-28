@@ -8,4 +8,9 @@ public abstract class SourcePageBase {
 
     public abstract By getRadioButton();
 
+    public abstract By getMediaMenu();
+
+    public abstract By getHomeMenu();
+
+
 }

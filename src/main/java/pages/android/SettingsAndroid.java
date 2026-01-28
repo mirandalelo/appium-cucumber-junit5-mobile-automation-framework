@@ -13,6 +13,7 @@ public class SettingsAndroid extends SettingsBase {
     private final String getRadioSettingsButtonGlowEffect = "//android.view.View[@content-desc='Glow effect']";
     private final String radioSettingsCloseButton = "//android.view.View[@resource-id=\"uilib_root_test_tag\"]/android.view.View/android.view.View[3]";
     private final String radioSettingsCloseButtonClass = "android.widget.Button";
+    private final String mediaMenu = ".//node[@resource-id='IconicBar.Det.Media']";
 
     @Override
     public By getSettingsButton() {
@@ -32,5 +33,8 @@ public class SettingsAndroid extends SettingsBase {
 
     @Override
     public By getRadioSettingsCloseButton() { return By.xpath(radioSettingsCloseButtonClass); }
+
+    @Override
+    public By getMediaMenu() { return By.xpath(mediaMenu); }
 
 }

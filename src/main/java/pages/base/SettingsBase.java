@@ -15,4 +15,6 @@ public abstract class SettingsBase {
 
     public abstract By getRadioSettingsCloseButton();
 
+    public abstract By getMediaMenu();
+
 }

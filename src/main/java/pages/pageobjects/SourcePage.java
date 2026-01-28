@@ -31,7 +31,12 @@ public class SourcePage extends HomePage {
 
     public void openMediaSource() {
 
-        if (waitAndCheckIsClickable(sourcePageBase.getSourceButton(), Duration.ofSeconds(3))) {
+        if (waitAndCheckIsClickable(sourcePageBase.getMediaMenu(), Duration.ofSeconds(3))) {
+
+            click(sourcePageBase.getMediaMenu());
+            waitFor(Duration.ofSeconds(1));
+
+        } else if (waitAndCheckIsClickable(sourcePageBase.getSourceButton(), Duration.ofSeconds(3))) {
 
             click(sourcePageBase.getSourceButton());
             waitFor(Duration.ofSeconds(1));

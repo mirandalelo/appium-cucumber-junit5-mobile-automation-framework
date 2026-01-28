@@ -1,17 +1,21 @@
 @station
 Feature: Radio Stations
 
+  Background:
+    Given Android Home Button is pressed
+
+
   Scenario: User starts the car and disables full screen mode from radio settings
 #    Given all popups are closed after startup
-    Given media source menu is opened
-    And radio is selected from media source
-    And User taps over radio settings button
+#    Given media source menu is opened
+#    And radio is selected from media source
+#    And User taps over radio settings button
     And User disables full screen mode from radio settings
     And User closes radio settings screen
 
   @IDCEVODEV-22952
   Scenario: [Tuner] Select other station in DAB all stations list
-    Given the media source is "radio"
+#    Given the media source is "radio" (Redundant - Covered by Background)
     When selecting "any" station from the stations list
     Then the "current" station is audible
     And the "current" information is updated
@@ -24,7 +28,7 @@ Feature: Radio Stations
 
   @IDCEVODEV-22966
   Scenario: [Tuner] DAB - All stations list
-    Given the media source is "radio"
+#    Given the media source is "radio" (Redundant - Covered by Background)
     When selecting "any" station from the stations list
     Then the "current" station is audible
     And the "current" information is updated
@@ -40,6 +44,8 @@ Feature: Radio Stations
     And waits for 3 seconds
     Then the "current" station is audible
     And the "current" information is updated
+    When pressing the left skip button in Media Mini Player
+#   Original below was incorrect syntax for skipped button
     When pressing right skip button on Media Mini Player
     Then the next station in the list is selected
     Then the "next" station is audible
